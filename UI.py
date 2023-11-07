@@ -51,10 +51,6 @@ if __name__ == '__main__':
     image = cv2.imread('15.jpg')
 
     final=predict(image)
-    cv2.imwrite("ou1.jpg",final)
-    resized_image = cv2.resize(image, (900,900))
-    cv2.imshow("out", resized_image)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
-    time.sleep(10)
+
+    
 
