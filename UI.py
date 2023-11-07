@@ -23,11 +23,11 @@ def predict(img):
     # Apply AHE to the image
     equalized_image = clahe.apply(image)
     bgr_image = cv2.cvtColor(equalized_image, cv2.COLOR_GRAY2BGR)
-    #img = cv2.resize(img, (2048, 1152))
-    #bgr_image = cv2.resize(bgr_image, (2048, 2048))
-    #model.predict(bgr_image, save=True, show=True,imgsz=(2048,2048))
+    img = cv2.resize(img, (2048, 2048))
+    bgr_image = cv2.resize(bgr_image, (2048, 2048))
+
     results = model(bgr_image,imgsz=(2048,2048))
-    #results = model(resized_image)
+
     for result in results:
         boxes = result.boxes  # Boxes object for bbox outputs
         masks = result.masks  # Masks object for segmentation masks outputs
@@ -48,9 +48,10 @@ def predict(img):
     return img
 
 if __name__ == '__main__':
-    image = cv2.imread('13.jpg')
+    image = cv2.imread('15.jpg')
 
     final=predict(image)
+    cv2.imwrite("ou1.jpg",final)
     resized_image = cv2.resize(image, (900,900))
     cv2.imshow("out", resized_image)
     cv2.waitKey(0)
