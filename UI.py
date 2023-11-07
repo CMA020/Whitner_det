@@ -7,6 +7,7 @@ clip_limit = 78  # Set your desired clip limit (78 in this example)
 tile_size = 20
 
 def pred(img):
+
     image = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     clahe = cv2.createCLAHE(clipLimit=clip_limit / 10.0, tileGridSize=(tile_size, tile_size))
 
@@ -19,7 +20,7 @@ def pred(img):
     # Apply AHE to the image
     equalized_image = clahe.apply(image)
     bgr_image = cv2.cvtColor(equalized_image, cv2.COLOR_GRAY2BGR)
-
+    #model.predict(bgr_image, save=True, show=True)
     cv2.waitKey(1)
     results = model(bgr_image,imgsz=2048)
     for result in results:
@@ -42,9 +43,12 @@ def pred(img):
 
 
 if __name__ == '__main__':
-    image = cv2.imread("13.jpg", cv2.IMREAD_GRAYSCALE)
+    image = cv2.imread("Sample3.png")
     final=pred(image)
     resized_image = cv2.resize(image, (900,900))
+    cv2.imshow("win",resized_image)
+    cv2.waitKey(0)
+
 
 
 
