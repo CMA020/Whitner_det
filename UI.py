@@ -42,7 +42,7 @@ def pred(img):
 
 
 if __name__ == '__main__':
-    image = cv2.imread("13.jpg", cv2.IMREAD_GRAYSCALE)
+    image = cv2.imread("13.jpg")
     final=pred(image)
     resized_image = cv2.resize(image, (900,900))
 
