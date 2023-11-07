@@ -42,9 +42,11 @@ def pred(img):
 
 
 if __name__ == '__main__':
-    image = cv2.imread("13.jpg")
+    image = cv2.imread("15.jpg")
     final=pred(image)
     resized_image = cv2.resize(image, (900,900))
+    cv2.imshow("win",resized_image)
+    cv2.waitKey(0)
 
 
 
