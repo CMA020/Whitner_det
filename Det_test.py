@@ -8,7 +8,7 @@ tile_size = 20
 
 
 if __name__ == '__main__':
-    image = cv2.imread("24.jpg", cv2.IMREAD_GRAYSCALE)
+    image = cv2.imread("Sample3.png", cv2.IMREAD_GRAYSCALE)
 
     # Create an instance of the CLAHE (Contrast Limited Adaptive Histogram Equalization) class
     clahe = cv2.createCLAHE(clipLimit=clip_limit / 10.0, tileGridSize=(tile_size, tile_size))
