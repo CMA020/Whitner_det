@@ -1,0 +1,2 @@
+last_14 works well on everything latest trained 
+last48_9 works well on everything older weight
