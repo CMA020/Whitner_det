@@ -79,7 +79,39 @@ def predict(img):
                 cv2.putText(img, "overwriting", ((x - int(w / 2), y - int(h / 2) - 10)), cv2.FONT_HERSHEY_SIMPLEX, 1,
                             (0, 0, 0), 2)
 ##################### paste
-    
+    clahe2 = cv2.createCLAHE(clipLimit=0 / 10.0, tileGridSize=(3, 3))
+
+    # Apply AHE to the image
+    equalized_image2 = clahe2.apply(image)
+    bgr_image3 = cv2.cvtColor(equalized_image2, cv2.COLOR_GRAY2BGR)
+
+
+
+    results = model3(bgr_image3, imgsz=(2048, 2048), conf=0.5)
+    for result in results:
+        boxes = result.boxes  # Boxes object for bbox outputs
+        masks = result.masks  # Masks object for segmentation masks outputs
+        keypoints = result.keypoints  # Keypoints object for pose outputs
+        probs = result.probs  # Probs object for classification outputs
+
+        for box in boxes:
+            # print(box.xywh)
+            if (int(box.cls) == 0):
+                x = int(box.xywh[0][0])
+                y = int(box.xywh[0][1])
+                w = int(box.xywh[0][2])
+                h = int(box.xywh[0][3])
+                i = int(box.cls)
+                a = (2048 / height) * (x - (w / 2))
+
+                b = (2048 / width) * (y - (h / 2))
+                c = (2048 / height) * (x + (w / 2))
+
+                d = (2048 / width) * (y + (h / 2))
+
+                cv2.rectangle(img, (int(a), int(b)),
+                              (int(c), int(d)), (0, 0, 255), thickness=4)
+                cv2.putText(img, "pasted", (int(a), int(b) - 10), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
 
 
     return img
