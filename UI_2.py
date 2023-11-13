@@ -4,7 +4,8 @@ import cv2
 import time
 
 model = YOLO(os.path.expanduser('~/Whitner_det/best_W_3.pt')) #white
-model2 = YOLO(os.path.expanduser('~/overwrite_det/best_17_O.pt')) #over
+model2 = YOLO(os.path.expanduser('~/overwrite_det/last_20_OWO.pt')) #over
+model3 = YOLO(os.path.expanduser('~/data_m/last_13_MWO.pt'))#paste
 clip_limit = 78  # Set your desired clip limit (78 in this example)
 tile_size = 20
 
@@ -29,7 +30,7 @@ def predict(img):
     img = cv2.resize(img, (2048, 2048))
     bgr_image = cv2.resize(bgr_image, (2048, 2048))
 
-    results = model(bgr_image, imgsz=(2048, 2048))
+    results = model(bgr_image, imgsz=(2048, 2048),conf=0.5)
 
     for result in results:
         boxes = result.boxes  # Boxes object for bbox outputs
@@ -47,6 +48,8 @@ def predict(img):
                 i = int(box.cls)
                 cv2.rectangle(img, (x - int(w / 2), y - int(h / 2)), ((x + int(w / 2)), (y + int(h / 2))), (0, 0, 255),
                               thickness=4)
+                cv2.putText(img, "whitner", ((x - int(w / 2), y - int(h / 2) - 10)), cv2.FONT_HERSHEY_SIMPLEX, 1,
+                            (0, 0, 0), 2)
 
 ############# overwriting
 
@@ -55,7 +58,7 @@ def predict(img):
 
     bgr_image2 = cv2.resize(bgr_image2, (2048, 2048))
     # model.predict(bgr_image, save=True, show=True, imgsz=(2048, 2048))
-    results = model(bgr_image2, imgsz=(2048, 2048))
+    results = model(bgr_image2, imgsz=(2048, 2048),conf=0.55)
 
     for result in results:
         boxes = result.boxes  # Boxes object for bbox outputs
@@ -73,14 +76,20 @@ def predict(img):
                 i = int(box.cls)
                 cv2.rectangle(img, (x - int(w / 2), y - int(h / 2)), ((x + int(w / 2)), (y + int(h / 2))), (0, 255,255 ),
                               thickness=4)
+                cv2.putText(img, "overwriting", ((x - int(w / 2), y - int(h / 2) - 10)), cv2.FONT_HERSHEY_SIMPLEX, 1,
+                            (0, 0, 0), 2)
+##################### paste
+    
+
 
     return img
 
 
 if __name__ == '__main__':
-    image = cv2.imread('15.jpg')
+    image = cv2.imread('Sample1_1.jpg')
 
     final = predict(image)
+    cv2.imwrite("final.jpg", final)
 
 
 
