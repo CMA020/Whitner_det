@@ -118,7 +118,7 @@ if __name__ == '__main__':
     image = cv2.imread('Sample1.jpg')
 
     final = predict(image)
-    
+
 
 
 
