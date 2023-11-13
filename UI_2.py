@@ -3,7 +3,7 @@ import os
 import cv2
 import time
 
-model = YOLO(os.path.expanduser('~/Whitner_det/best_W_3.pt')) #white
+model = YOLO(os.path.expanduser('~/Whitner_det/last_14_13_W.pt')) #white
 model2 = YOLO(os.path.expanduser('~/overwrite_det/last_20_OWO.pt')) #over
 model3 = YOLO(os.path.expanduser('~/data_m/last_13_MWO.pt'))#paste
 clip_limit = 78  # Set your desired clip limit (78 in this example)
@@ -22,10 +22,7 @@ def predict(img):
     equalized_image = clahe.apply(image)
 
     # Create an instance of the CLAHE (Contrast Limited Adaptive Histogram Equalization) class
-    clahe = cv2.createCLAHE(clipLimit=clip_limit / 10.0, tileGridSize=(tile_size, tile_size))
 
-    # Apply AHE to the image
-    equalized_image = clahe.apply(image)
     bgr_image = cv2.cvtColor(equalized_image, cv2.COLOR_GRAY2BGR)
     img = cv2.resize(img, (2048, 2048))
     bgr_image = cv2.resize(bgr_image, (2048, 2048))
@@ -118,10 +115,11 @@ def predict(img):
 
 
 if __name__ == '__main__':
-    image = cv2.imread('Sample1_1.jpg')
+    image = cv2.imread('Sample1.jpg')
 
     final = predict(image)
     
+
 
 
 
