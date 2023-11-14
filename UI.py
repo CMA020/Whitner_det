@@ -2,7 +2,7 @@ from ultralytics import YOLO
 import os
 import cv2
 import time
-model = YOLO(os.path.expanduser('~/Whitner_det/last_48_9_W.pt'))
+model = YOLO(os.path.expanduser('~/Whitner_det/last_14_13_W.pt'))
 clip_limit = 78  # Set your desired clip limit (78 in this example)
 tile_size = 20
 
@@ -50,7 +50,7 @@ def predict(img):
     return img
 
 if __name__ == '__main__':
-    image = cv2.imread('Sample1.jpg')
+    image = cv2.imread('15.jpg')
 
     final=predict(image)
     cv2.imwrite("final.jpg", final)
