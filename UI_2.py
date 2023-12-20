@@ -4,14 +4,15 @@ import cv2
 import time
 
 model = YOLO(os.path.expanduser('~/Whitner_det/last_14_13_W.pt')) #white
-model2 = YOLO(os.path.expanduser('~/overwrite_det/last_20_OWO.pt')) #over
-model3 = YOLO(os.path.expanduser('~/data_m/last_13_MWO.pt'))#paste
+model2 = YOLO(os.path.expanduser('~/overwrite_det/last_11_O_M.pt')) #over
+model3 = YOLO(os.path.expanduser('~/data_m/last_11_M_L.pt'))#paste
 clip_limit = 78  # Set your desired clip limit (78 in this example)
 tile_size = 20
 
 
 def predict(img):
     image = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    width, height, channels = img.shape
     # Create an instance of the CLAHE (Contrast Limited Adaptive Histogram Equalization) class
     clahe = cv2.createCLAHE(clipLimit=clip_limit / 10.0, tileGridSize=(tile_size, tile_size))
     width, height, channels = img.shape
@@ -53,9 +54,9 @@ def predict(img):
     bgr_image2 = cv2.cvtColor(image, cv2.COLOR_GRAY2BGR)
 
 
-    bgr_image2 = cv2.resize(bgr_image2, (2048, 2048))
+    #bgr_image2 = cv2.resize(bgr_image2, (2048, 2048))
     # model.predict(bgr_image, save=True, show=True, imgsz=(2048, 2048))
-    results = model(bgr_image2, imgsz=(2048, 2048),conf=0.55)
+    results = model2(bgr_image2, imgsz=(2048, 2048),conf=0.5)
 
     for result in results:
         boxes = result.boxes  # Boxes object for bbox outputs
@@ -115,7 +116,7 @@ def predict(img):
 
 
 if __name__ == '__main__':
-    image = cv2.imread('Sample1.jpg')
+    image = cv2.imread('Sample1_1.jpg')
 
     final = predict(image)
 

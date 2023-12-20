@@ -24,7 +24,9 @@ def predict(img):
     equalized_image = clahe.apply(image)
     bgr_image = cv2.cvtColor(equalized_image, cv2.COLOR_GRAY2BGR)
     img = cv2.resize(img, (2048, 2048))
+
     bgr_image = cv2.resize(bgr_image, (2048, 2048))
+
     #model.predict(bgr_image, save=True, show=True, imgsz=(2048, 2048))
     results = model(bgr_image,imgsz=(2048,2048))
 
@@ -50,7 +52,7 @@ def predict(img):
     return img
 
 if __name__ == '__main__':
-    image = cv2.imread('15.jpg')
+    image = cv2.imread('t3.jpeg')
 
     final=predict(image)
     cv2.imwrite("final.jpg", final)
